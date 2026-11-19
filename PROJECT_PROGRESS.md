@@ -2,7 +2,9 @@
 
 ## 📋 Project Status: DEVELOPMENT COMPLETE ✅
 
-Last Updated: January 2024
+Last Updated: November 2026
+GitHub: https://github.com/nilanjanm944-del/Online-Shopping-Website
+Latest Commit: 9ca8a17 — All Unsplash URLs replaced with Pixabay CDN URLs
 
 ---
 
@@ -134,9 +136,11 @@ Last Updated: January 2024
 - [x] Responsive on mobile
 
 ### Images
-- [x] All products have Unsplash URLs
-- [x] Fallback image for broken URLs
-- [x] Correct product photography for each category
+- [x] All products use Pixabay CDN URLs (no Unsplash — free, no auth required)
+- [x] All hero banners use Pixabay CDN URLs
+- [x] All fallback image URLs use Pixabay CDN (ProductCard, ProductDetail, Cart, Wishlist, Orders, Checkout, Admin pages)
+- [x] Blog featured images use Pixabay CDN URLs
+- [x] Zero Unsplash URLs remain in entire codebase (verified by grep)
 
 ---
 
