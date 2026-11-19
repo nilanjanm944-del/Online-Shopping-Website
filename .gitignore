@@ -1,0 +1,32 @@
+﻿# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+backend/.env
+!backend/.env.example
+
+# Build output
+build/
+dist/
+frontend/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploads (local dev only)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+
+# Bob AI artifacts (not part of project)
+shopzee-final-completion-report.html
