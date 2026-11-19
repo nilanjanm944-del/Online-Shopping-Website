@@ -92,7 +92,7 @@ export default function OrderDetailPage() {
                 <div key={i} className="flex gap-4 pb-4 border-b border-gray-50 dark:border-gray-800 last:border-0">
                   <img src={item.image} alt={item.name}
                     className="w-16 h-16 rounded-xl object-cover"
-                    onError={e => { e.target.src = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=100'; }} />
+                    onError={e => { e.target.src = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg'; }} />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-gray-900 dark:text-white text-sm line-clamp-2">{item.name}</p>
                     <p className="text-xs text-gray-500 mt-0.5">Qty: {item.quantity} {item.size ? `| Size: ${item.size}` : ''}</p>

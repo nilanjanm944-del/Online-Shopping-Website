@@ -80,7 +80,7 @@ export default function OrdersPage() {
                     {order.items?.slice(0, 3).map((item, i) => (
                       <img key={i} src={item.image}
                         className="w-12 h-12 rounded-xl object-cover border border-gray-100 dark:border-gray-800"
-                        onError={e => { e.target.src = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=100'; }}
+                        onError={e => { e.target.src = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg'; }}
                         alt={item.name}
                       />
                     ))}

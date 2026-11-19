@@ -16,7 +16,7 @@ const heroBanners = [
     bg: 'from-slate-900 via-blue-950 to-slate-900',
     accent: 'text-blue-400',
     badge: '60% OFF',
-    image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800',
+    image: 'https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_1280.jpg',
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const heroBanners = [
     bg: 'from-rose-900 via-pink-950 to-rose-900',
     accent: 'text-pink-400',
     badge: 'NEW ARRIVALS',
-    image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800',
+    image: 'https://cdn.pixabay.com/photo/2017/08/01/10/16/woman-2563491_1280.jpg',
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const heroBanners = [
     bg: 'from-green-900 via-emerald-950 to-green-900',
     accent: 'text-green-400',
     badge: 'FRESH & FAST',
-    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800',
+    image: 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg',
   },
 ];
 
@@ -67,21 +67,21 @@ const testimonials = [
     rating: 5,
     comment: 'Amazing shopping experience! Got my iPhone delivered in just 2 days. The packaging was perfect and the product is genuine.',
     location: 'Mumbai',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100'
+    avatar: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/people-2023191_1280.jpg'
   },
   {
     name: 'Rahul Mehta',
     rating: 5,
     comment: 'Best e-commerce site in India! Great discounts on electronics and the customer service is excellent.',
     location: 'Bangalore',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100'
+    avatar: 'https://cdn.pixabay.com/photo/2016/11/23/07/32/man-1853115_1280.jpg'
   },
   {
     name: 'Anjali Patel',
     rating: 5,
     comment: 'I love the fashion collection! Ordered a saree for Diwali and it arrived beautifully packed. Will definitely shop again.',
     location: 'Delhi',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100'
+    avatar: 'https://cdn.pixabay.com/photo/2021/09/08/15/32/girl-6607272_1280.jpg'
   }
 ];
 
@@ -280,7 +280,7 @@ export default function Home() {
                 <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-50 mb-2">
                   <img src={product.images?.[0]} alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={e => { e.target.src = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=400'; }}
+                    onError={e => { e.target.src = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg'; }}
                     loading="lazy"
                   />
                   <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">
@@ -314,7 +314,7 @@ export default function Home() {
       <section className="page-container pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link to="/fashion" className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 h-48 group">
-            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="Fashion"
+            <img src="https://cdn.pixabay.com/photo/2017/08/01/10/16/woman-2563491_1280.jpg" alt="Fashion"
               className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-500" />
             <div className="relative p-6 h-full flex flex-col justify-end">
               <span className="text-pink-200 text-sm font-medium">New Collection</span>
@@ -323,7 +323,7 @@ export default function Home() {
             </div>
           </Link>
           <Link to="/electronics" className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-700 h-48 group">
-            <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600" alt="Electronics"
+            <img src="https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_1280.jpg" alt="Electronics"
               className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:scale-105 transition-transform duration-500" />
             <div className="relative p-6 h-full flex flex-col justify-end">
               <span className="text-blue-200 text-sm font-medium">Best Deals</span>

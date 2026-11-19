@@ -327,7 +327,7 @@ export default function CheckoutPage() {
                     <div key={item._id} className="flex gap-3 py-2 border-b border-gray-50 dark:border-gray-800 last:border-0">
                       <img src={item.product?.images?.[0] || item.image} alt={item.name}
                         className="w-14 h-14 object-cover rounded-lg"
-                        onError={e => { e.target.src = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=200'; }} />
+                        onError={e => { e.target.src = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg'; }} />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm text-gray-800 dark:text-gray-200 line-clamp-1">{item.name}</p>
                         <p className="text-xs text-gray-500">Qty: {item.quantity} {item.size ? `| Size: ${item.size}` : ''}</p>

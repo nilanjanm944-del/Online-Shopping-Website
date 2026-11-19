@@ -59,7 +59,7 @@ export default function WishlistPage() {
                   <Link to={`/products/${product.slug || product._id}`}>
                     <img src={product.images?.[0]}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={e => { e.target.src = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=400'; }}
+                      onError={e => { e.target.src = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg'; }}
                       alt={product.name}
                     />
                   </Link>

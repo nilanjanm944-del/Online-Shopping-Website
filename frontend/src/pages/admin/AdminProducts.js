@@ -214,7 +214,7 @@ export default function AdminProducts() {
                           <div className="flex items-center gap-3">
                             <img src={product.images?.[0]} alt={product.name}
                               className="w-10 h-10 rounded-lg object-cover"
-                              onError={e => { e.target.src = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=100'; }} />
+                              onError={e => { e.target.src = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg'; }} />
                             <div className="min-w-0">
                               <p className="text-sm font-medium text-gray-800 dark:text-gray-200 line-clamp-1">{product.name}</p>
                               <p className="text-xs text-gray-400">{product.brand}</p>

@@ -6,7 +6,7 @@ import useAuthStore from '../store/authStore';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
 
-const FALLBACK = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=200';
+const FALLBACK = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg';
 
 export default function CartPage() {
   const navigate = useNavigate();

@@ -12,7 +12,7 @@ import ProductCard from '../components/common/ProductCard';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
 
-const FALLBACK_IMG = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=600';
+const FALLBACK_IMG = 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg';
 
 function StarRating({ rating, numReviews }) {
   return (

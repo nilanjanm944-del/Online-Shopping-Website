@@ -12,86 +12,86 @@ const Offer = require('../models/Offer');
 const Blog = require('../models/Blog');
 const Vlog = require('../models/Vlog');
 
-// ─── Product Image URLs (Unsplash + curated realistic product images) ──────────
-// Using Unsplash source URLs for realistic product photography
+// ─── Product Image URLs ─────────────────────────────────────────────────────────
+// Using Pixabay CDN + Pexels — 100% free, no API key required, direct links
 const IMG = {
-  // Electronics
-  iphone15: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600',
-  samsung_s24: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600',
-  laptop_macbook: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600',
-  laptop_dell: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600',
-  headphones: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600',
-  earphones: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600',
-  smartwatch: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600',
-  camera: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600',
-  tv: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600',
-  speaker: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600',
-  tablet: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600',
-  powerbank: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600',
-  // Fashion - Men
-  mens_tshirt: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600',
-  mens_shirt: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600',
-  mens_jeans: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600',
-  mens_jacket: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600',
-  mens_hoodie: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=600',
-  mens_formal: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600',
-  mens_shoes: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600',
-  // Fashion - Women
-  womens_dress: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600',
-  womens_kurti: 'https://images.unsplash.com/photo-1583391733981-8498408ee4b6?w=600',
-  womens_saree: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600',
-  womens_top: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600',
-  womens_jeans: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600',
-  womens_heels: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600',
-  womens_bag: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600',
-  // Fashion - Kids
-  kids_tshirt: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=600',
-  kids_dress: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=600',
-  // Watches
-  watch_luxury: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600',
-  watch_sport: 'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=600',
-  // Home & Kitchen
-  refrigerator: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=600',
-  washing_machine: 'https://images.unsplash.com/photo-1626806787461-102c1a7f1b34?w=600',
-  microwave: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600',
-  air_fryer: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600',
-  mixer: 'https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600',
-  sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600',
-  cookware: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600',
-  vacuum: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
-  // Grocery
-  fruits: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=600',
-  vegetables: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600',
-  rice: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600',
-  spices: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600',
-  dairy: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600',
-  snacks: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=600',
-  beverages: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600',
-  olive_oil: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600',
-  // Beauty
-  skincare: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600',
-  makeup: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600',
-  perfume: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=600',
-  haircare: 'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=600',
-  // Sports
-  gym_equipment: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600',
-  cricket: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600',
-  football: 'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=600',
-  yoga_mat: 'https://images.unsplash.com/photo-1601925228440-15dcfbb11d0f?w=600',
-  // Books
-  book_fiction: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600',
-  book_academic: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600',
-  notebook: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=600',
-  // Toys
-  toys_lego: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
-  toys_soft: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
-  toys_board: 'https://images.unsplash.com/photo-1585504198199-20277593b94f?w=600',
-  // Automotive
-  car_accessories: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600',
-  helmet: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600',
-  // Pets
-  pet_food: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600',
-  pet_toys: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600',
+  // Electronics — Pixabay CDN direct links
+  iphone15:       'https://cdn.pixabay.com/photo/2022/01/30/16/51/iphone-6981458_1280.jpg',
+  samsung_s24:    'https://cdn.pixabay.com/photo/2016/11/29/12/13/samsung-1869465_1280.jpg',
+  laptop_macbook: 'https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_1280.jpg',
+  laptop_dell:    'https://cdn.pixabay.com/photo/2016/09/07/11/37/laptop-1653_.jpg',
+  headphones:     'https://cdn.pixabay.com/photo/2018/09/17/14/27/headphones-3683983_1280.jpg',
+  earphones:      'https://cdn.pixabay.com/photo/2020/10/05/12/26/earphones-5629913_1280.jpg',
+  smartwatch:     'https://cdn.pixabay.com/photo/2015/09/02/13/24/apple-watch-919233_1280.jpg',
+  camera:         'https://cdn.pixabay.com/photo/2016/11/23/14/45/camera-1853677_1280.jpg',
+  tv:             'https://cdn.pixabay.com/photo/2019/11/07/20/48/tv-4609464_1280.jpg',
+  speaker:        'https://cdn.pixabay.com/photo/2015/05/25/12/16/sound-783714_1280.jpg',
+  tablet:         'https://cdn.pixabay.com/photo/2016/09/20/16/10/woman-1683154_1280.jpg',
+  powerbank:      'https://cdn.pixabay.com/photo/2020/07/17/05/00/charger-5412504_1280.jpg',
+  // Fashion - Men — Pixabay
+  mens_tshirt:    'https://cdn.pixabay.com/photo/2016/11/23/07/32/man-1853115_1280.jpg',
+  mens_shirt:     'https://cdn.pixabay.com/photo/2017/08/06/00/35/shirt-2588254_1280.jpg',
+  mens_jeans:     'https://cdn.pixabay.com/photo/2015/08/09/08/41/jeans-882951_1280.jpg',
+  mens_jacket:    'https://cdn.pixabay.com/photo/2017/11/02/12/13/man-2911437_1280.jpg',
+  mens_hoodie:    'https://cdn.pixabay.com/photo/2020/10/14/08/13/hoodie-5654108_1280.jpg',
+  mens_formal:    'https://cdn.pixabay.com/photo/2015/07/20/12/57/man-852764_1280.jpg',
+  mens_shoes:     'https://cdn.pixabay.com/photo/2016/11/19/15/46/audience-1840037_1280.jpg',
+  // Fashion - Women — Pixabay
+  womens_dress:   'https://cdn.pixabay.com/photo/2017/08/01/10/16/woman-2563491_1280.jpg',
+  womens_kurti:   'https://cdn.pixabay.com/photo/2021/09/08/15/32/girl-6607272_1280.jpg',
+  womens_saree:   'https://cdn.pixabay.com/photo/2020/09/18/05/58/indian-5581706_1280.jpg',
+  womens_top:     'https://cdn.pixabay.com/photo/2017/01/31/13/14/people-2023191_1280.jpg',
+  womens_jeans:   'https://cdn.pixabay.com/photo/2016/03/27/22/00/fashion-1283863_1280.jpg',
+  womens_heels:   'https://cdn.pixabay.com/photo/2016/11/18/19/00/feet-1835065_1280.jpg',
+  womens_bag:     'https://cdn.pixabay.com/photo/2015/11/19/21/14/glasses-1052010_1280.jpg',
+  // Fashion - Kids — Pixabay
+  kids_tshirt:    'https://cdn.pixabay.com/photo/2015/09/15/19/11/girl-941232_1280.jpg',
+  kids_dress:     'https://cdn.pixabay.com/photo/2017/09/05/10/00/children-2717454_1280.jpg',
+  // Watches — Pixabay
+  watch_luxury:   'https://cdn.pixabay.com/photo/2016/01/19/17/48/clock-1149631_1280.jpg',
+  watch_sport:    'https://cdn.pixabay.com/photo/2017/08/10/02/05/tiles-shapes-2617112_1280.jpg',
+  // Home & Kitchen — Pixabay
+  refrigerator:   'https://cdn.pixabay.com/photo/2020/09/16/14/14/fridge-5577726_1280.jpg',
+  washing_machine:'https://cdn.pixabay.com/photo/2020/06/08/16/39/washing-machine-5274913_1280.jpg',
+  microwave:      'https://cdn.pixabay.com/photo/2015/05/14/09/55/microwave-oven-765250_1280.jpg',
+  air_fryer:      'https://cdn.pixabay.com/photo/2021/11/18/09/55/air-fryer-6806039_1280.jpg',
+  mixer:          'https://cdn.pixabay.com/photo/2015/09/14/13/48/blender-940463_1280.jpg',
+  sofa:           'https://cdn.pixabay.com/photo/2017/03/19/01/43/living-room-2155376_1280.jpg',
+  cookware:       'https://cdn.pixabay.com/photo/2015/09/16/19/40/kitchen-942621_1280.jpg',
+  vacuum:         'https://cdn.pixabay.com/photo/2017/04/05/00/09/vacuum-cleaner-2203526_1280.jpg',
+  // Grocery — Pixabay
+  fruits:         'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg',
+  vegetables:     'https://cdn.pixabay.com/photo/2017/10/09/19/29/eat-2834549_1280.jpg',
+  rice:           'https://cdn.pixabay.com/photo/2019/11/05/09/49/rice-4603993_1280.jpg',
+  spices:         'https://cdn.pixabay.com/photo/2015/09/02/13/30/spices-919945_1280.jpg',
+  dairy:          'https://cdn.pixabay.com/photo/2017/07/05/15/41/milk-2474993_1280.jpg',
+  snacks:         'https://cdn.pixabay.com/photo/2017/04/06/22/09/popcorn-2209951_1280.jpg',
+  beverages:      'https://cdn.pixabay.com/photo/2016/08/23/08/53/bottles-1613910_1280.jpg',
+  olive_oil:      'https://cdn.pixabay.com/photo/2015/05/31/13/59/oil-791781_1280.jpg',
+  // Beauty — Pixabay
+  skincare:       'https://cdn.pixabay.com/photo/2020/04/14/10/31/cosmetics-5042016_1280.jpg',
+  makeup:         'https://cdn.pixabay.com/photo/2017/11/09/21/41/makeup-brushes-2935366_1280.jpg',
+  perfume:        'https://cdn.pixabay.com/photo/2019/09/12/15/18/perfume-4472418_1280.jpg',
+  haircare:       'https://cdn.pixabay.com/photo/2016/03/27/19/58/vintage-1283938_1280.jpg',
+  // Sports — Pixabay
+  gym_equipment:  'https://cdn.pixabay.com/photo/2017/08/07/14/02/man-2604149_1280.jpg',
+  cricket:        'https://cdn.pixabay.com/photo/2016/11/23/15/48/audience-1853662_1280.jpg',
+  football:       'https://cdn.pixabay.com/photo/2015/11/07/11/13/football-1031498_1280.jpg',
+  yoga_mat:       'https://cdn.pixabay.com/photo/2017/08/06/12/06/people-2591874_1280.jpg',
+  // Books — Pixabay
+  book_fiction:   'https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1835157_1280.jpg',
+  book_academic:  'https://cdn.pixabay.com/photo/2015/09/05/07/28/writing-923882_1280.jpg',
+  notebook:       'https://cdn.pixabay.com/photo/2015/10/04/11/26/notebook-971500_1280.jpg',
+  // Toys — Pixabay
+  toys_lego:      'https://cdn.pixabay.com/photo/2015/03/08/17/25/lego-664064_1280.jpg',
+  toys_soft:      'https://cdn.pixabay.com/photo/2015/11/19/21/14/toy-1052005_1280.jpg',
+  toys_board:     'https://cdn.pixabay.com/photo/2016/01/19/18/01/chess-1151305_1280.jpg',
+  // Automotive — Pixabay
+  car_accessories:'https://cdn.pixabay.com/photo/2015/09/02/13/24/car-923194_1280.jpg',
+  helmet:         'https://cdn.pixabay.com/photo/2017/09/01/00/15/png-2702548_1280.png',
+  // Pets — Pixabay
+  pet_food:       'https://cdn.pixabay.com/photo/2015/11/17/13/13/puppy-1047521_1280.jpg',
+  pet_toys:       'https://cdn.pixabay.com/photo/2016/02/19/15/46/dog-1210559_1280.jpg',
 };
 
 const products = [
@@ -101,7 +101,7 @@ const products = [
     brand: 'Apple', category: 'electronics', subcategory: 'smartphones',
     description: 'The iPhone 15 Pro Max features a titanium design with an A17 Pro chip, a 48MP main camera system, and USB 3 speeds. Experience ProMotion technology with a 6.7-inch Super Retina XDR display.',
     shortDescription: 'Apple A17 Pro chip, 48MP camera, titanium design',
-    images: [IMG.iphone15, 'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600'],
+    images: [IMG.iphone15, 'https://cdn.pixabay.com/photo/2016/11/29/12/13/samsung-1869465_1280.jpg'],
     originalPrice: 159900, sellingPrice: 149900, stock: 50,
     isFeatured: true, isNewArrival: true, isBestSeller: true,
     specifications: [
@@ -123,7 +123,7 @@ const products = [
     brand: 'Samsung', category: 'electronics', subcategory: 'smartphones',
     description: 'Galaxy S24 Ultra with built-in S Pen, 200MP camera, AI-powered features, and 6.8-inch Dynamic AMOLED 2X display. The ultimate Galaxy experience.',
     shortDescription: 'Built-in S Pen, 200MP camera, Galaxy AI features',
-    images: [IMG.samsung_s24, 'https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600'],
+    images: [IMG.samsung_s24, 'https://cdn.pixabay.com/photo/2022/01/30/16/51/iphone-6981458_1280.jpg'],
     originalPrice: 134999, sellingPrice: 119999, stock: 35,
     isFeatured: true, isBestSeller: true,
     specifications: [
@@ -144,7 +144,7 @@ const products = [
     brand: 'Apple', category: 'electronics', subcategory: 'laptops',
     description: 'MacBook Pro 14-inch with M3 Pro chip delivers exceptional performance for professionals. Features a stunning Liquid Retina XDR display, up to 18 hours of battery life.',
     shortDescription: 'M3 Pro chip, 14-inch Liquid Retina XDR, 18GB unified memory',
-    images: [IMG.laptop_macbook, 'https://images.unsplash.com/photo-1611186871525-9b851e6f2d08?w=600'],
+    images: [IMG.laptop_macbook, 'https://cdn.pixabay.com/photo/2016/09/07/11/37/laptop-1653_.jpg'],
     originalPrice: 249900, sellingPrice: 229900, stock: 20,
     isFeatured: true,
     specifications: [
@@ -165,7 +165,7 @@ const products = [
     brand: 'Dell', category: 'electronics', subcategory: 'laptops',
     description: 'Dell XPS 15 with 13th Gen Intel Core i9, NVIDIA GeForce RTX 4070, and a stunning 15.6-inch OLED display. Perfect for creators and power users.',
     shortDescription: 'Core i9, RTX 4070, 15.6-inch OLED display',
-    images: [IMG.laptop_dell, 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600'],
+    images: [IMG.laptop_dell, 'https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_1280.jpg'],
     originalPrice: 219990, sellingPrice: 189990, stock: 15,
     isFeatured: true,
     specifications: [
@@ -185,7 +185,7 @@ const products = [
     brand: 'Sony', category: 'electronics', subcategory: 'headphones',
     description: 'Industry-leading noise cancelling headphones with 30-hour battery life, multipoint connection, and crystal clear hands-free calling. LDAC for high-quality audio streaming.',
     shortDescription: 'Industry-leading ANC, 30-hour battery, LDAC audio',
-    images: [IMG.headphones, 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600'],
+    images: [IMG.headphones, 'https://cdn.pixabay.com/photo/2020/10/05/12/26/earphones-5629913_1280.jpg'],
     originalPrice: 29990, sellingPrice: 24990, stock: 75,
     isBestSeller: true, isOnSale: true,
     specifications: [
@@ -206,7 +206,7 @@ const products = [
     brand: 'Apple', category: 'electronics', subcategory: 'smartwatches',
     description: 'Apple Watch Series 9 with the new S9 chip, Double Tap gesture, and a brighter Always-On Retina display. Track your health with advanced sensors including blood oxygen and ECG.',
     shortDescription: 'S9 chip, Double Tap gesture, Always-On display',
-    images: [IMG.smartwatch, 'https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600'],
+    images: [IMG.smartwatch, 'https://cdn.pixabay.com/photo/2015/09/02/13/24/apple-watch-919233_1280.jpg'],
     originalPrice: 44900, sellingPrice: 41900, stock: 60,
     isFeatured: true, isBestSeller: true,
     specifications: [
@@ -228,7 +228,7 @@ const products = [
     brand: 'Sony', category: 'electronics', subcategory: 'cameras',
     description: 'Sony Alpha 7 IV (body only) features a 33MP full-frame BSI-CMOS sensor, BIONZ XR image processor, and real-time autofocus. Shoot 4K60p video for professional results.',
     shortDescription: '33MP full-frame sensor, 4K60p video, real-time AF',
-    images: [IMG.camera, 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600'],
+    images: [IMG.camera, 'https://cdn.pixabay.com/photo/2016/11/23/14/45/camera-1853677_1280.jpg'],
     originalPrice: 259990, sellingPrice: 239990, stock: 12,
     isFeatured: true,
     specifications: [
@@ -248,7 +248,7 @@ const products = [
     brand: 'Samsung', category: 'electronics', subcategory: 'televisions',
     description: 'Samsung 65-inch QLED 4K Smart TV with Quantum Processor 4K, 100% Color Volume with Quantum Dot, and built-in Alexa. Experience cinematic visuals in your living room.',
     shortDescription: 'QLED 4K, Quantum Processor, 100% Color Volume',
-    images: [IMG.tv, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600'],
+    images: [IMG.tv, 'https://cdn.pixabay.com/photo/2019/11/07/20/48/tv-4609464_1280.jpg'],
     originalPrice: 149990, sellingPrice: 109990, stock: 20,
     isBestSeller: true, isOnSale: true,
     specifications: [
@@ -270,7 +270,7 @@ const products = [
     brand: 'H&M', category: 'fashion', subcategory: 't-shirts',
     description: 'Premium cotton round neck T-shirts with a relaxed fit. Soft, breathable fabric perfect for everyday wear. Available in multiple colors.',
     shortDescription: 'Pack of 3, 100% cotton, relaxed fit',
-    images: [IMG.mens_tshirt, 'https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=600'],
+    images: [IMG.mens_tshirt, 'https://cdn.pixabay.com/photo/2017/08/06/00/35/shirt-2588254_1280.jpg'],
     originalPrice: 1499, sellingPrice: 999, stock: 200,
     isBestSeller: true, isOnSale: true,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -292,7 +292,7 @@ const products = [
     brand: 'Peter England', category: 'fashion', subcategory: 'shirts',
     description: 'Crisp cotton formal shirt with a slim fit for a sharp look. Perfect for office or formal occasions. Spread collar with button placket.',
     shortDescription: 'Slim fit, spread collar, office wear',
-    images: [IMG.mens_shirt, 'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=600'],
+    images: [IMG.mens_shirt, 'https://cdn.pixabay.com/photo/2015/07/20/12/57/man-852764_1280.jpg'],
     originalPrice: 1999, sellingPrice: 1299, stock: 150,
     isOnSale: true,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -313,7 +313,7 @@ const products = [
     brand: 'Levi\'s', category: 'fashion', subcategory: 'jeans',
     description: 'Levi\'s 511 slim fit jeans made from stretch denim for all-day comfort. Classic 5-pocket styling with a modern slim cut.',
     shortDescription: 'Levi\'s 511 slim fit, stretch denim, classic 5-pocket',
-    images: [IMG.mens_jeans, 'https://images.unsplash.com/photo-1555689502-c4b22d76c56f?w=600'],
+    images: [IMG.mens_jeans, 'https://cdn.pixabay.com/photo/2016/03/27/22/00/fashion-1283863_1280.jpg'],
     originalPrice: 3999, sellingPrice: 2799, stock: 120,
     isBestSeller: true,
     sizes: ['28', '30', '32', '34', '36', '38'],
@@ -328,7 +328,7 @@ const products = [
     brand: 'Royal Enfield', category: 'fashion', subcategory: 'jackets',
     description: 'Premium genuine leather jacket with a classic biker style. Features a YKK zipper, multiple pockets, and quilted lining for warmth.',
     shortDescription: 'Genuine leather, biker style, quilted lining',
-    images: [IMG.mens_jacket, 'https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=600'],
+    images: [IMG.mens_jacket, 'https://cdn.pixabay.com/photo/2020/10/14/08/13/hoodie-5654108_1280.jpg'],
     originalPrice: 8999, sellingPrice: 6499, stock: 40,
     isOnSale: true,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -344,7 +344,7 @@ const products = [
     brand: 'Zara', category: 'fashion', subcategory: 'dresses',
     description: 'Beautiful floral print maxi dress perfect for summer outings. Made from lightweight chiffon fabric with a flowy silhouette and V-neck design.',
     shortDescription: 'Floral print, chiffon fabric, V-neck, maxi length',
-    images: [IMG.womens_dress, 'https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=600'],
+    images: [IMG.womens_dress, 'https://cdn.pixabay.com/photo/2017/01/31/13/14/people-2023191_1280.jpg'],
     originalPrice: 3499, sellingPrice: 2299, stock: 80,
     isNewArrival: true, isOnSale: true,
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
@@ -359,7 +359,7 @@ const products = [
     brand: 'Biba', category: 'fashion', subcategory: 'kurtas',
     description: 'Beautifully embroidered Anarkali kurti in cotton fabric. Features intricate embroidery work, round neck, and three-quarter sleeves. Ideal for festive occasions.',
     shortDescription: 'Embroidered Anarkali, cotton, festive wear',
-    images: [IMG.womens_kurti, 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600'],
+    images: [IMG.womens_kurti, 'https://cdn.pixabay.com/photo/2020/09/18/05/58/indian-5581706_1280.jpg'],
     originalPrice: 2499, sellingPrice: 1799, stock: 60,
     isBestSeller: true,
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
@@ -373,7 +373,7 @@ const products = [
     brand: 'Nalli', category: 'fashion', subcategory: 'sarees',
     description: 'Exquisite pure silk Banarasi saree with zari work and beautiful patterns. Comes with a matching unstitched blouse piece. Perfect for weddings and special occasions.',
     shortDescription: 'Pure silk, Banarasi zari work, with blouse piece',
-    images: [IMG.womens_saree, 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600'],
+    images: [IMG.womens_saree, 'https://cdn.pixabay.com/photo/2021/09/08/15/32/girl-6607272_1280.jpg'],
     originalPrice: 12999, sellingPrice: 9999, stock: 25,
     isFeatured: true,
     colors: [{ name: 'Maroon', hex: '#800000' }, { name: 'Royal Blue', hex: '#4169e1' }, { name: 'Green', hex: '#006400' }],
@@ -388,7 +388,7 @@ const products = [
     brand: 'LG', category: 'home-kitchen', subcategory: 'refrigerators',
     description: 'LG Smart Inverter Compressor refrigerator with Frost-Free technology, Door Cooling+, and Multi Air Flow system. Energy efficient with 3-star rating.',
     shortDescription: 'Smart Inverter, 260L, 3-star energy rating, Door Cooling+',
-    images: [IMG.refrigerator, 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=600'],
+    images: [IMG.refrigerator, 'https://cdn.pixabay.com/photo/2020/06/08/16/39/washing-machine-5274913_1280.jpg'],
     originalPrice: 32990, sellingPrice: 28990, stock: 15,
     isBestSeller: true,
     specifications: [
@@ -409,7 +409,7 @@ const products = [
     brand: 'Samsung', category: 'home-kitchen', subcategory: 'washing-machines',
     description: 'Samsung Ecobubble front load washing machine with Hygiene Steam, Anti-Vibration Design, and Digital Inverter Technology for quiet operation and energy savings.',
     shortDescription: 'EcoBubble, Hygiene Steam, Digital Inverter, 7kg',
-    images: [IMG.washing_machine, 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600'],
+    images: [IMG.washing_machine, 'https://cdn.pixabay.com/photo/2020/09/16/14/14/fridge-5577726_1280.jpg'],
     originalPrice: 42990, sellingPrice: 34990, stock: 12,
     specifications: [
       { key: 'Capacity', value: '7 kg' },
@@ -427,7 +427,7 @@ const products = [
     brand: 'Philips', category: 'home-kitchen', subcategory: 'air-fryers',
     description: 'Philips Air Fryer uses Rapid Air Technology to fry, bake, grill and roast using 90% less fat. 4.1 litre capacity perfect for family cooking.',
     shortDescription: 'Rapid Air Technology, 4.1L, 90% less fat, 2000W',
-    images: [IMG.air_fryer, 'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600'],
+    images: [IMG.air_fryer, 'https://cdn.pixabay.com/photo/2015/09/14/13/48/blender-940463_1280.jpg'],
     originalPrice: 9999, sellingPrice: 6999, stock: 60,
     isOnSale: true, isBestSeller: true,
     specifications: [
@@ -445,7 +445,7 @@ const products = [
     brand: 'Godrej', category: 'home-kitchen', subcategory: 'furniture',
     description: 'Premium 3-seater sofa with high-density foam cushions and durable velvet fabric. Solid wood frame with anti-rust metal legs. Ideal for living rooms.',
     shortDescription: 'High-density foam, velvet fabric, solid wood frame',
-    images: [IMG.sofa, 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600'],
+    images: [IMG.sofa, 'https://cdn.pixabay.com/photo/2015/09/16/19/40/kitchen-942621_1280.jpg'],
     originalPrice: 34999, sellingPrice: 24999, stock: 8,
     isBestSeller: true,
     specifications: [
@@ -466,7 +466,7 @@ const products = [
     brand: 'FreshFarm', category: 'grocery', subcategory: 'fruits',
     description: 'Fresh seasonal fruit basket with handpicked apples, bananas, and oranges. Sourced directly from farms, rich in vitamins and antioxidants.',
     shortDescription: 'Fresh seasonal fruits, 2kg mixed basket',
-    images: [IMG.fruits, 'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?w=600'],
+    images: [IMG.fruits, 'https://cdn.pixabay.com/photo/2017/10/09/19/29/eat-2834549_1280.jpg'],
     originalPrice: 299, sellingPrice: 249, stock: 200,
     isOnSale: true,
     weight: '2 kg',
@@ -484,7 +484,7 @@ const products = [
     brand: 'India Gate', category: 'grocery', subcategory: 'rice',
     description: 'India Gate Classic Basmati Rice offers extra long grains that cook to perfection. Aged for a minimum of 1 year for authentic aroma and taste.',
     shortDescription: 'Extra long grain, aged 1 year, aromatic basmati',
-    images: [IMG.rice, 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=600'],
+    images: [IMG.rice, 'https://cdn.pixabay.com/photo/2015/09/02/13/30/spices-919945_1280.jpg'],
     originalPrice: 699, sellingPrice: 599, stock: 300,
     isBestSeller: true,
     weight: '5 kg',
@@ -502,7 +502,7 @@ const products = [
     brand: 'Everest', category: 'grocery', subcategory: 'spices',
     description: 'Everest Kitchen King Masala - the perfect blend of premium spices for authentic Indian cooking. No artificial colours or preservatives.',
     shortDescription: 'Premium spice blend, no artificial colors, 500g',
-    images: [IMG.spices, 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=600'],
+    images: [IMG.spices, 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg'],
     originalPrice: 299, sellingPrice: 249, stock: 400,
     specifications: [
       { key: 'Net Weight', value: '500g' },
@@ -520,7 +520,7 @@ const products = [
     brand: 'Minimalist', category: 'beauty', subcategory: 'skincare',
     description: 'Minimalist 10% Niacinamide + 1% Zinc serum helps reduce pore appearance, controls excess oil, and improves skin texture. Suitable for all skin types.',
     shortDescription: '10% Niacinamide + 1% Zinc, pore minimizing, oil control',
-    images: [IMG.skincare, 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600'],
+    images: [IMG.skincare, 'https://cdn.pixabay.com/photo/2017/11/09/21/41/makeup-brushes-2935366_1280.jpg'],
     originalPrice: 699, sellingPrice: 569, stock: 150,
     isBestSeller: true, isNewArrival: true,
     specifications: [
@@ -537,7 +537,7 @@ const products = [
     brand: 'Chanel', category: 'beauty', subcategory: 'perfumes',
     description: 'Chanel No. 5 - the legendary fragrance that has been beloved for over a century. A timeless floral aldehyde with notes of jasmine, rose, and sandalwood.',
     shortDescription: 'Legendary floral fragrance, 100ml EDP',
-    images: [IMG.perfume, 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600'],
+    images: [IMG.perfume, 'https://cdn.pixabay.com/photo/2020/04/14/10/31/cosmetics-5042016_1280.jpg'],
     originalPrice: 18900, sellingPrice: 16900, stock: 30,
     isFeatured: true,
     specifications: [
@@ -557,7 +557,7 @@ const products = [
     brand: 'Cosco', category: 'sports', subcategory: 'cricket',
     description: 'Cosco Torrido Pro cricket bat made from premium Kashmir Willow. Features a traditional English handle and perfect blade for power hitting.',
     shortDescription: 'Kashmir Willow, traditional English handle, professional grade',
-    images: [IMG.cricket, 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600'],
+    images: [IMG.cricket, 'https://cdn.pixabay.com/photo/2015/11/07/11/13/football-1031498_1280.jpg'],
     originalPrice: 2499, sellingPrice: 1899, stock: 60,
     specifications: [
       { key: 'Wood', value: 'Kashmir Willow' },
@@ -573,7 +573,7 @@ const products = [
     brand: 'Boldfit', category: 'sports', subcategory: 'fitness',
     description: 'Premium quality yoga mat with extra-thick 6mm cushioning for comfort and joint protection. Anti-slip textured surface for stability in all poses.',
     shortDescription: '6mm thick, anti-slip surface, durable TPE material',
-    images: [IMG.yoga_mat, 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600'],
+    images: [IMG.yoga_mat, 'https://cdn.pixabay.com/photo/2017/08/07/14/02/man-2604149_1280.jpg'],
     originalPrice: 999, sellingPrice: 699, stock: 200,
     isBestSeller: true, isOnSale: true,
     colors: [{ name: 'Purple', hex: '#800080' }, { name: 'Blue', hex: '#0000ff' }, { name: 'Black', hex: '#000000' }],
@@ -593,7 +593,7 @@ const products = [
     brand: 'Penguin Random House', category: 'books', subcategory: 'non-fiction',
     description: 'No.1 New York Times bestseller. James Clear reveals how tiny changes in behavior can lead to remarkable results. Learn the proven framework for improving every day.',
     shortDescription: 'NY Times #1 Bestseller, habit formation guide',
-    images: [IMG.book_fiction, 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600'],
+    images: [IMG.book_fiction, 'https://cdn.pixabay.com/photo/2015/09/05/07/28/writing-923882_1280.jpg'],
     originalPrice: 399, sellingPrice: 299, stock: 300,
     isBestSeller: true,
     specifications: [
@@ -613,7 +613,7 @@ const products = [
     brand: 'LEGO', category: 'toys', subcategory: 'educational-toys',
     description: 'LEGO Classic Medium Creative Brick Box with 484 bricks in 35 colors. Perfect for children aged 4+ to build, create and express their imagination.',
     shortDescription: '484 pieces, 35 colors, ages 4+, creative play',
-    images: [IMG.toys_lego, 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600'],
+    images: [IMG.toys_lego, 'https://cdn.pixabay.com/photo/2015/11/19/21/14/toy-1052005_1280.jpg'],
     originalPrice: 3499, sellingPrice: 2799, stock: 80,
     isBestSeller: true,
     specifications: [
@@ -632,7 +632,7 @@ const products = [
     brand: 'Vega', category: 'automotive', subcategory: 'helmets',
     description: 'Vega Crux full-face helmet with DOT certification, aerodynamic design, and scratch-resistant visor. Ventilation system for comfort during long rides.',
     shortDescription: 'DOT certified, aerodynamic design, scratch-resistant visor',
-    images: [IMG.helmet, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600'],
+    images: [IMG.helmet, 'https://cdn.pixabay.com/photo/2015/09/02/13/24/car-923194_1280.jpg'],
     originalPrice: 1999, sellingPrice: 1499, stock: 100,
     isBestSeller: true,
     sizes: ['S (55-56cm)', 'M (57-58cm)', 'L (59-60cm)', 'XL (61-62cm)'],
@@ -653,7 +653,7 @@ const products = [
     brand: 'Pedigree', category: 'pets', subcategory: 'pet-food',
     description: 'Complete and balanced nutrition for adult dogs. Pedigree Adult dry dog food with chicken and vegetables provides 9 essential nutrients including omega 6 for healthy coat.',
     shortDescription: 'Complete nutrition, chicken & vegetables, 10kg pack',
-    images: [IMG.pet_food, 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600'],
+    images: [IMG.pet_food, 'https://cdn.pixabay.com/photo/2016/02/19/15/46/dog-1210559_1280.jpg'],
     originalPrice: 1999, sellingPrice: 1699, stock: 100,
     isBestSeller: true,
     weight: '10 kg',
@@ -783,7 +783,7 @@ const blogs = [
 </ul>`,
     category: 'buying-guide',
     tags: ['smartphones', 'buying guide', '2024', 'apple', 'samsung'],
-    featuredImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1200',
+    featuredImage: 'https://cdn.pixabay.com/photo/2022/01/30/16/51/iphone-6981458_1280.jpg',
     isPublished: true,
     publishedAt: new Date(),
     views: 2341
@@ -803,7 +803,7 @@ const blogs = [
 <p>Blending traditional Indian styles with contemporary cuts is having a major moment. Embroidered kurtas with denim, sarees with modern blouses – the fusion is beautiful.</p>`,
     category: 'fashion',
     tags: ['fashion', 'trends', '2024', 'style'],
-    featuredImage: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200',
+    featuredImage: 'https://cdn.pixabay.com/photo/2017/08/01/10/16/woman-2563491_1280.jpg',
     isPublished: true,
     publishedAt: new Date(Date.now() - 86400000),
     views: 1876
