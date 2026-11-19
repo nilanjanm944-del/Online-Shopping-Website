@@ -1,0 +1,48 @@
+name: Deploy WORLDKART to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: Build React app
+        run: npm run build
+        working-directory: frontend
+        env:
+          # Points to a free public demo backend on Render (update this after deploying backend)
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL || 'https://worldkart-api.onrender.com/api' }}
+          PUBLIC_URL: /Online-Shopping-Website
+          CI: false
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: frontend/build
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: 'deploy: WORLDKART frontend build'

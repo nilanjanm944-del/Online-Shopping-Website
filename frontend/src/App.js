@@ -72,7 +72,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
         <Toaster
